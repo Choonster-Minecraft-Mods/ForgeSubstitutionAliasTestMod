@@ -1,0 +1,16 @@
+[
+{
+  "modid": "forgesubstitutionaliastestmod",
+  "name": "Forge Substitution Alias Test Mod",
+  "description": "A small mod to test Forge's substitution alias system by replacing the `minecraft:snow_layer` block.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Choonster"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
