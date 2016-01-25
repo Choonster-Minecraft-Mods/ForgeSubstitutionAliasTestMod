@@ -43,6 +43,8 @@ public class BlockSnowLayerReplacement extends BlockSnow {
 			playerIn.addChatComponentMessage(new ChatComponentText("This is a replacement snow layer block"));
 		}
 
+		worldIn.setBlockState(pos, state.cycleProperty(ENABLED));
+
 		return true;
 	}
 }
