@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ObjectIntIdentityMap;
@@ -40,6 +41,13 @@ public class ForgeSubstitutionAliasTestMod {
 			LOGGER.error("Unable to add substitution alias for minecraft:snow_layer", e);
 		}
 
+		ItemStickReplacement itemStickReplacement = new ItemStickReplacement();
+		try {
+			GameRegistry.addSubstitutionAlias("minecraft:stick", GameRegistry.Type.ITEM, itemStickReplacement);
+		} catch (ExistingSubstitutionException e) {
+			LOGGER.error("Unable to add substitution alias for minecraft:stick", e);
+		}
+
 		if (event.getSide().isClient()) {
 			final Item item = Item.getItemFromBlock(blockSnowLayerReplacement);
 			final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(item.getRegistryName(), "layers=1,enabled=true");
@@ -51,6 +59,10 @@ public class ForgeSubstitutionAliasTestMod {
 					return modelResourceLocation;
 				}
 			});
+
+			final ModelResourceLocation stickModel = new ModelResourceLocation(MODID + ":" + "stick", "inventory");
+			ModelLoader.setCustomModelResourceLocation(Items.stick, 0, stickModel);
+			ModelLoader.setCustomModelResourceLocation(itemStickReplacement, 0, stickModel);
 		}
 	}
 
