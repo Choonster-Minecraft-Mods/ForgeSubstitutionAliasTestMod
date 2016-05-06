@@ -38,9 +38,10 @@ public class ForgeSubstitutionAliasTestMod {
 
 		blockSnowLayerReplacement = new BlockSnowLayerReplacement();
 		blockSnowLayerReplacement.setRegistryName(SNOW_LAYER);
+		final ItemSnowLayerReplacement itemSnowLayerReplacement = new ItemSnowLayerReplacement(blockSnowLayerReplacement);
 		try {
 			GameRegistry.addSubstitutionAlias(SNOW_LAYER.toString(), GameRegistry.Type.BLOCK, blockSnowLayerReplacement);
-			GameRegistry.addSubstitutionAlias(SNOW_LAYER.toString(), GameRegistry.Type.ITEM, new ItemSnowLayerReplacement(blockSnowLayerReplacement).setRegistryName(SNOW_LAYER));
+			GameRegistry.addSubstitutionAlias(SNOW_LAYER.toString(), GameRegistry.Type.ITEM, itemSnowLayerReplacement.setRegistryName(SNOW_LAYER));
 			LOGGER.info("Added substitution for {}", SNOW_LAYER);
 		} catch (ExistingSubstitutionException e) {
 			LOGGER.error("Unable to add substitution alias for minecraft:snow_layer", e);
@@ -56,11 +57,10 @@ public class ForgeSubstitutionAliasTestMod {
 		}
 
 		if (event.getSide().isClient()) {
-			final Item item = Item.getItemFromBlock(blockSnowLayerReplacement);
-			final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(item.getRegistryName(), "layers=1,enabled=true");
+			final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(SNOW_LAYER, "layers=1,enabled=true");
 
-			ModelBakery.registerItemVariants(item, modelResourceLocation);
-			ModelLoader.setCustomMeshDefinition(item, new ItemMeshDefinition() {
+			ModelBakery.registerItemVariants(itemSnowLayerReplacement, modelResourceLocation);
+			ModelLoader.setCustomMeshDefinition(itemSnowLayerReplacement, new ItemMeshDefinition() {
 				@Override
 				public ModelResourceLocation getModelLocation(ItemStack stack) {
 					return modelResourceLocation;
