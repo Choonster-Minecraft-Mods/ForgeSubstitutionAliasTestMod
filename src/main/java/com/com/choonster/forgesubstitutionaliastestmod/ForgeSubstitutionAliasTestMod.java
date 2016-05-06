@@ -74,7 +74,10 @@ public class ForgeSubstitutionAliasTestMod {
 
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		LOGGER.info("{} = {}", SNOW_LAYER, ForgeRegistries.BLOCKS.getValue(SNOW_LAYER).getClass());
+		LOGGER.info("{} (Block Registry) = {}", SNOW_LAYER, ForgeRegistries.BLOCKS.getValue(SNOW_LAYER).getClass());
+		LOGGER.info("{} (Item Registry) = {}", SNOW_LAYER, ForgeRegistries.ITEMS.getValue(SNOW_LAYER).getClass());
+		LOGGER.info("{} (Item.getItemFromBlock) = {}", SNOW_LAYER, Item.getItemFromBlock(blockSnowLayerReplacement).getClass());
+
 		LOGGER.info("{} = {}", STICK, ForgeRegistries.ITEMS.getValue(STICK).getClass());
 	}
 
