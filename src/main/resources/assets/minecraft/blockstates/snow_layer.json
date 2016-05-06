@@ -14,7 +14,8 @@
 		"enabled": {
 			"true": {
 				"submodel": {
-					"pillar": { "model": "wall_n" }
+					"pillar_side": { "model": "wall_side" },
+					"pillar_post": { "model": "wall_post" }
 				},
 				"textures": {
 					"wall": "forgesubstitutionaliastestmod:blocks/green"
@@ -22,7 +23,8 @@
 			},
 			"false": {
 				"submodel": {
-					"pillar": { "model": "wall_n" }
+					"pillar_side": { "model": "wall_side" },
+					"pillar_post": { "model": "wall_post" }
 				},
 				"textures": {
 					"wall": "forgesubstitutionaliastestmod:blocks/red"

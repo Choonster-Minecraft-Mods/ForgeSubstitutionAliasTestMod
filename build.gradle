@@ -17,11 +17,10 @@ group= "com.choonster.forgesubstitutionaliastestmod" // http://maven.apache.org/
 archivesBaseName = "ForgeSubstitutionAliasTestMod"
 
 minecraft {
-    version = "1.8.9-11.15.0.1718"
+    version = "1.9-12.16.1.1891"
     runDir = "run"
    
-    mappings = "stable_20"
-    makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
+    mappings = "snapshot_20160312"
 }
 
 dependencies {
