@@ -1,4 +1,4 @@
-package com.com.choonster.forgesubstitutionaliastestmod;
+package choonster.forgesubstitutionaliastestmod;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

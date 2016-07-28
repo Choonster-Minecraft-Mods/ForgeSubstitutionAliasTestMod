@@ -1,23 +1,17 @@
-package com.com.choonster.forgesubstitutionaliastestmod;
+package choonster.forgesubstitutionaliastestmod;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ObjectIntIdentityMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLModIdMappingEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ExistingSubstitutionException;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameData;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
@@ -37,14 +31,13 @@ public class ForgeSubstitutionAliasTestMod {
 		LOGGER = event.getModLog();
 
 		blockSnowLayerReplacement = new BlockSnowLayerReplacement();
-		blockSnowLayerReplacement.setRegistryName(SNOW_LAYER);
-		final ItemSnowLayerReplacement itemSnowLayerReplacement = new ItemSnowLayerReplacement(blockSnowLayerReplacement);
+
 		try {
 			GameRegistry.addSubstitutionAlias(SNOW_LAYER.toString(), GameRegistry.Type.BLOCK, blockSnowLayerReplacement);
-			GameRegistry.addSubstitutionAlias(SNOW_LAYER.toString(), GameRegistry.Type.ITEM, itemSnowLayerReplacement.setRegistryName(SNOW_LAYER));
+			GameRegistry.addSubstitutionAlias(SNOW_LAYER.toString(), GameRegistry.Type.ITEM, new ItemSnowLayerReplacement(blockSnowLayerReplacement));
 			LOGGER.info("Added substitution for {}", SNOW_LAYER);
 		} catch (ExistingSubstitutionException e) {
-			LOGGER.error("Unable to add substitution alias for minecraft:snow_layer", e);
+			LOGGER.error("Unable to add substitution alias for " + SNOW_LAYER, e);
 		}
 
 		final ItemStickReplacement itemStickReplacement = new ItemStickReplacement();
@@ -59,8 +52,9 @@ public class ForgeSubstitutionAliasTestMod {
 		if (event.getSide().isClient()) {
 			final ModelResourceLocation modelResourceLocation = new ModelResourceLocation(SNOW_LAYER, "layers=1,enabled=true");
 
-			ModelBakery.registerItemVariants(itemSnowLayerReplacement, modelResourceLocation);
-			ModelLoader.setCustomMeshDefinition(itemSnowLayerReplacement, new ItemMeshDefinition() {
+			final Item itemSnowLayer = Item.getItemFromBlock(blockSnowLayerReplacement);
+			ModelBakery.registerItemVariants(itemSnowLayer, modelResourceLocation);
+			ModelLoader.setCustomMeshDefinition(itemSnowLayer, new ItemMeshDefinition() {
 				@Override
 				public ModelResourceLocation getModelLocation(ItemStack stack) {
 					return modelResourceLocation;
@@ -79,26 +73,5 @@ public class ForgeSubstitutionAliasTestMod {
 		LOGGER.info("{} (Item.getItemFromBlock) = {}", SNOW_LAYER, Item.getItemFromBlock(blockSnowLayerReplacement).getClass());
 
 		LOGGER.info("{} = {}", STICK, ForgeRegistries.ITEMS.getValue(STICK).getClass());
-	}
-
-	/*
-	 This is a hack and shouldn't be needed, but it does replace any occurrences of the vanilla block in the world with the replacement block.
-	 The model renders properly, the F3 debug info displays the correct state and Block#onBlockActivated is called.
-
-	 /setblock still doesn't place the replacement block, but the vanilla block will be replaced with the replacement block when the world is reloaded.
-
-	 Without this, the replacement block is removed from the world after a reload.
-	  */
-	@Mod.EventHandler
-	public void idMapping(FMLModIdMappingEvent event) {
-		ObjectIntIdentityMap<IBlockState> blockStateIDMap = GameData.getBlockStateIDMap();
-
-		final int id = Block.blockRegistry.getIDForObject(Blocks.snow_layer);
-
-		for (IBlockState state : blockSnowLayerReplacement.getBlockState().getValidStates()) {
-			blockStateIDMap.put(state, id << 4 | blockSnowLayerReplacement.getMetaFromState(state));
-		}
-
-		LOGGER.info("{} = {}", SNOW_LAYER, ForgeRegistries.BLOCKS.getValue(SNOW_LAYER).getClass());
 	}
 }

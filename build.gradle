@@ -7,20 +7,20 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.0"
-group= "com.choonster.forgesubstitutionaliastestmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group= "choonster.forgesubstitutionaliastestmod" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "ForgeSubstitutionAliasTestMod"
 
 minecraft {
-    version = "1.9-12.16.1.1891"
+    version = "1.10.2-12.18.1.2027"
     runDir = "run"
    
-    mappings = "snapshot_20160312"
+    mappings = "snapshot_20160518"
 }
 
 dependencies {
