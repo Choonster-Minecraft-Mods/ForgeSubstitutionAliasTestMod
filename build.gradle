@@ -17,7 +17,7 @@ group= "choonster.forgesubstitutionaliastestmod" // http://maven.apache.org/guid
 archivesBaseName = "ForgeSubstitutionAliasTestMod"
 
 minecraft {
-    version = "1.10.2-12.18.1.2027"
+    version = "1.10.2-12.18.1.2035"
     runDir = "run"
    
     mappings = "snapshot_20160518"
