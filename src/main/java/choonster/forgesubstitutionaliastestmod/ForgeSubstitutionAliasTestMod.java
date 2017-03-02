@@ -1,6 +1,5 @@
 package choonster.forgesubstitutionaliastestmod;
 
-import com.google.common.base.Function;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.SoundType;
@@ -15,8 +14,6 @@ import net.minecraftforge.fml.common.registry.ExistingSubstitutionException;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
 
 @Mod(modid = ForgeSubstitutionAliasTestMod.MODID, name = ForgeSubstitutionAliasTestMod.NAME)
 public class ForgeSubstitutionAliasTestMod {
@@ -44,10 +41,9 @@ public class ForgeSubstitutionAliasTestMod {
 		try {
 			GameRegistry.addSubstitutionAlias(DIRT.toString(), GameRegistry.Type.BLOCK, blockDirtReplacement);
 
-			final ItemMultiTexture item = new ItemMultiTexture(blockDirtReplacement, blockDirtReplacement, new Function<ItemStack, String>() {
-				@Nullable
+			final ItemMultiTexture item = new ItemMultiTexture(blockDirtReplacement, blockDirtReplacement, new ItemMultiTexture.Mapper() {
 				@Override
-				public String apply(@Nullable ItemStack stack) {
+				public String apply(ItemStack stack) {
 					return BlockDirt.DirtType.byMetadata(stack.getMetadata()).getUnlocalizedName();
 				}
 			});
